@@ -88,6 +88,8 @@ extension SyntaxFactory {
     }
     
     private static func funcContent(node: FunctionDeclSyntax) -> CodeBlockSyntax? {
+        let hasReturn = node.signature.output != nil
+        
         guard let oldContent = node.body?.statements,
               let leadingTrivia = oldContent.first?.leadingTrivia
         else {
@@ -116,10 +118,16 @@ extension SyntaxFactory {
             argumentList: makeTupleExprElementList([]),
             rightParen: nil,
             trailingClosure: closure,
-            additionalTrailingClosures: nil).withLeadingTrivia(leadingTrivia)
+            additionalTrailingClosures: nil
+        )
+        
+        let syntax: Syntax = hasReturn ?
+            Syntax(makeReturnStmt(returnKeyword: makeReturnKeyword(), expression: ExprSyntax(funcCall.withLeadingTrivia(Trivia.spaces(1))))
+            ).withLeadingTrivia(leadingTrivia) :
+            Syntax(funcCall.withLeadingTrivia(leadingTrivia))
         
         let newStatements = makeCodeBlockItemList([
-            makeCodeBlockItem(item: Syntax(funcCall), semicolon: nil, errorTokens: nil)
+            makeCodeBlockItem(item: syntax, semicolon: nil, errorTokens: nil)
         ])
         
         let newBody = node.body?.withStatements(newStatements)
