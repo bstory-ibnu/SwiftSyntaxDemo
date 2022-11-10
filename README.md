@@ -6,6 +6,7 @@ XCode 13.2.1
 
 ## How To Run
 
+You will not need XCode or text editor to run this demo. 
 Run below command, at downloaded repository folder
 ```
 swift build;swift run
