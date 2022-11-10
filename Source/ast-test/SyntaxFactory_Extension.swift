@@ -113,10 +113,16 @@ extension SyntaxFactory {
         )
         
         let funcCall = makeFunctionCallExpr(
-            calledExpression: ExprSyntax(makeIdentifierExpr(identifier: makeIdentifier("Measure "), declNameArguments: nil)),
-            leftParen: nil,
-            argumentList: makeTupleExprElementList([]),
-            rightParen: nil,
+            calledExpression: ExprSyntax(makeIdentifierExpr(identifier: makeIdentifier("Measure"), declNameArguments: nil)),
+            leftParen: makeLeftParenToken(),
+            argumentList: makeTupleExprElementList([
+                makeTupleExprElement(
+                    label: makeStringLiteral("at"),
+                    colon: makeColonToken(),
+                    expression: ExprSyntax(makeIdentifierExpr(identifier: makeIdentifier(" Self"), declNameArguments: nil)),
+                    trailingComma: nil)
+            ]),
+            rightParen: makeRightParenToken().withTrailingTrivia(Trivia.spaces(1)),
             trailingClosure: closure,
             additionalTrailingClosures: nil
         )
