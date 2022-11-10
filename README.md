@@ -8,12 +8,12 @@ XCode 13.2.1
 
 You will not need XCode or text editor to run this demo. 
 Run below command, at downloaded repository folder
-```
+```bash
 swift build;swift run
 ```
 
 The demo will modify TestClas.swift content from
-```
+```swift
 import Foundation
 
 class TestClass {
@@ -28,7 +28,7 @@ class TestClass {
 ```
 
 to 
-```
+```swift
 import Foundation
 
 class TestClass {
@@ -45,7 +45,7 @@ class TestClass {
 ```
 
 `return` Statement is optional you can test TestClass.swift with below content then re-run `swift build;swift run`
-```
+```swift
 import Foundation
 
 class TestClass {
